@@ -1,0 +1,61 @@
+.flex{
+    display: flex;
+
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+.items-center{
+    align-items: center;
+}
+.border{
+    border: 2px solid white;
+    margin: 2px;
+}
+.bg-gray{
+    background-color: #121212;
+    color: white;
+}
+.invert{
+    filter: invert(1);
+}
+
+.rounded{
+border-radius: 7px;
+}
+.p-1 {
+    margin: 7px;
+    padding: 12px;
+  
+}
+/* Custom scrollbar for dark websites */
+body {
+    scrollbar-color: black #1a1a1a; /* Thumb color and track color */
+    scrollbar-width: thin; /* Makes the scrollbar thinner */
+  }
+  
+  /* For WebKit browsers (e.g., Chrome, Safari) */
+  ::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+    height: 10px; /* Height of the scrollbar for horizontal scrolling */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #1a1a1a; /* Background of the scrollbar track */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: black; /* Color of the scrollbar thumb */
+    border-radius: 5px; /* Rounded corners for the thumb */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #333; /* Color when hovered */
+  }
+  
+  ::-webkit-scrollbar-corner {
+    background: #1a1a1a; /* Background of the corner where horizontal and vertical scrollbars meet */
+  }
+  
