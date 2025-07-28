@@ -61,7 +61,8 @@ function formatTime(decimalSeconds) {
 
 const playMusic = (track, pause = false) => {
     // let audio = new Audio("/songs/" + track)
-    currentsongs.src = (`${currFloder}` + track)
+    currentsongs.src = `${currFloder}/${track}`
+
     if (!pause) {
         currentsongs.play()
         play.src = "paused.svg"
@@ -76,7 +77,8 @@ const playMusic = (track, pause = false) => {
 }
 // functio  to display Albums
 async function displayAlbum() {
-    let a = await fetch(`http://127.0.0.1:3000/songs`)
+    let a = await fetch(`http://127.0.0.1:3000/songs/${folder}/info.json`)
+
     let response = await a.text();
     let div = document.createElement("div")
     div.innerHTML = response;
@@ -113,7 +115,7 @@ async function displayAlbum() {
 async function main() {
 
 
-    await getsongs("/songs/aj/")
+    await getsongs("songs/aj/")
     playMusic(songs[0], true)
     console.log(songs)
 
@@ -196,7 +198,7 @@ async function main() {
     Array.from(document.getElementsByClassName("Card")).forEach(e => {
         e.addEventListener("click", async iteam => {
 
-            songs = await getsongs(`songs/${iteam.currentTarget.dataset.folder}`)
+            await getsongs(`songs/${iteam.currentTarget.dataset.folder}`)
         })
 
     })
