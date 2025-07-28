@@ -6,47 +6,36 @@ let currFloder;
 
 async function getsongs(folder) {
     currFloder = folder;
-    let a = await fetch(`http://127.0.0.1:3000/${folder}`)
-    let response = await a.text();
-    let div = document.createElement("div")
-    div.innerHTML = response;
-    let as = div.getElementsByTagName("a")
-    songs = []
+    const res = await fetch(`${folder}/info.json`);
+    const data = await res.json();
+    songs = data.songs;
 
-    for (let index = 0; index < as.length; index++) {
-        const element = as[index];
-        if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split(`${currFloder}`)[1])
-        }
+    const songsul = document.querySelector(".songscard ul");
+    songsul.innerHTML = "";
 
-    }
-    // Show all songs in playlist
-    let songsul = document.querySelector(".songscard").getElementsByTagName("ul")[0]
-    songsul.innerHTML = " "
     for (const song of songs) {
-        songsul.innerHTML = songsul.innerHTML + `<li><img class=" invert" src="music.svg" alt="">
-                            <div class="info">
-                                <div>${song.replaceAll("%C3%89der_-", " ")} </div>
-                                <div>Syed</div>
-                            </div>
-
-                             <span>PlayNow</span>
-                             <img class="invert" src="playbutton.svg" alt="">
-                             </li>`;
+        songsul.innerHTML += `
+        <li>
+            <img class="invert" src="music.svg" alt="">
+            <div class="info">
+                <div>${song.replace(".mp3", "").replaceAll("_", " ")}</div>
+                <div>Syed</div>
+            </div>
+            <span>Play Now</span>
+            <img class="invert" src="playbutton.svg" alt="">
+        </li>`;
     }
 
+    // Add event listeners
+    Array.from(songsul.getElementsByTagName("li")).forEach((e, i) => {
+        e.addEventListener("click", () => {
+            playMusic(songs[i]);
+        });
+    });
 
-    //Add event listner to each song
-    Array.from(document.querySelector(".songscard").getElementsByTagName("li")).forEach(e => {
-        e.addEventListener("click", Element => {
-            console.log(e.querySelector(".info").firstElementChild.innerHTML)
-            playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim())
-        })
-
-    })
-
-
+    return songs;
 }
+
 
 
 // Function to convert seconds to mm:ss format
